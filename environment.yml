@@ -1,0 +1,11 @@
+name: Olson_Shayla
+channels:
+  - defaults
+dependencies:
+  - rstudio
+  - r-lintr
+  - r-devtools
+  - r-testthat
+  - r-tools
+prefix: ./envs
+

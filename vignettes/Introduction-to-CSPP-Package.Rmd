@@ -1,0 +1,37 @@
+---
+title: "Introduction-to-CSPP-Package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction-to-CSPP-Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The cspp allows researchers to conveniently explore the Correlates of State Policy Project dataset from the Institute for Public Policy and Social Research (IPPSR) at Michigan State University.
+```{r setup}
+devtools::install_github("shaylafolson/cspp")
+library(cspp)
+remove.packages("cspp")
+rm(variable_info)
+```
+
+Load the data:
+```{r data}
+data("csppFull")
+head("csppFull")
+```
+
+View the description, citation, and years available of a variable(s):
+```{r describe and cite}
+print(fullDescribe("poptotal"))
+print(quickDescribe(c("poptotal", "popfemale")))
+print(citation("poptotal"))
+print(years("poptotal"))
+```

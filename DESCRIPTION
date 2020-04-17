@@ -1,0 +1,20 @@
+Package: cspp
+Title: Correlates of State Policy Project
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Shayla",
+           family = "Olson",
+           role = "cre",
+           email = "shaylafolson@gmail.com")
+Description: This package allows interaction with the Correlates of State Policy 
+    Project data from the Institute for Public Policy and Social Research at 
+    Michigan State University.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
