@@ -20,12 +20,12 @@ rstudio
 ```{r}
 devtools::install_github("shaylafolson/cspp")
 library(cspp)
-
-data("csppFull")
 ```
 
 # Usage
 ```
+data(csppFull)
+
 # to get the citation for a variable
 citation("poptotal")
 

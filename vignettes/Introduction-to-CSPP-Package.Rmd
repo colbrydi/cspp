@@ -18,14 +18,12 @@ The cspp allows researchers to conveniently explore the Correlates of State Poli
 ```{r setup}
 devtools::install_github("shaylafolson/cspp")
 library(cspp)
-remove.packages("cspp")
-rm(variable_info)
 ```
 
 Load the data:
 ```{r data}
-data("csppFull")
-head("csppFull")
+data(csppFull)
+head(csppFull)
 ```
 
 View the description, citation, and years available of a variable(s):
