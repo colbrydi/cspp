@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 The cspp allows researchers to conveniently explore the Correlates of State Policy Project dataset from the Institute for Public Policy and Social Research (IPPSR) at Michigan State University.
-```{r setup}
+```{r installation and loading}
 devtools::install_github("shaylafolson/cspp")
 library(cspp)
 ```
@@ -23,13 +23,79 @@ library(cspp)
 Load the data:
 ```{r data}
 data(csppFull)
+names(csppFull)[1] = "year"
 head(csppFull)
 ```
 
 View the description, citation, and years available of a variable(s):
 ```{r describe and cite}
 print(fullDescribe("poptotal"))
-print(quickDescribe(c("poptotal", "popfemale")))
+print(quickDescribe("poptotal"))
 print(citation("poptotal"))
-print(years("poptotal"))
+print(years(c("poptotal", "popfemale")))
+
+bibliography <- citation(c("poptotal", "popfemale"))
+print(bibliography)
 ```
+
+How politically similar are residents of different states?
+```{r subsetting data}
+
+fullDescribe("pid")
+
+df <- subset(csppFull, select = c(year, st, pid))
+
+years('pid')
+
+df <- na.omit(df)
+unique(df$year)
+
+head(df)
+
+```
+
+```{r calculating similarity}
+library(dplyr)
+
+collapsed = df %>% dplyr::group_by(st) %>% dplyr::summarize(pid=mean(pid))
+
+head(collapsed)
+
+states = unique(collapsed$st)
+n = length(states)
+
+# set up matrix
+pidMat = matrix(NA, nrow=n, ncol=n,
+                dimnames=list(states,states))
+
+
+for(row in 1:nrow(pidMat)) {
+  for(col in 1:ncol(pidMat)) {
+    pidMat[row, col] = collapsed$pid[collapsed$st==rownames(pidMat)[row]] - 
+      collapsed$pid[collapsed$st==rownames(pidMat)[col]]
+    }
+}
+
+# check it
+pidMat[1:5, 1:5]
+
+```
+
+```{r viz}
+library(reshape2)
+
+melted_mat = melt(pidMat)
+head(melted_mat)
+
+library(ggplot2)
+library(hrbrthemes)
+
+
+ggplot(melted_mat, aes(x = Var2, y = Var1, fill = value)) + 
+  geom_tile() +
+  scale_fill_distiller(palette = "RdBu", trans = "reverse") + 
+  labs(title = "Difference in Citizen Partisanship", x = "", y = "") + 
+  theme(axis.text.x = element_text(angle = 0, hjust = 1))
+
+```
+
