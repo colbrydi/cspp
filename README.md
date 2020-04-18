@@ -45,3 +45,5 @@ conda activate ./envs
 conda install r-lintr
 Rscript linting.R
 ```
+# Tutorial (CMSE 802 Final)
+https://youtu.be/oAYIU9Ku-fI
